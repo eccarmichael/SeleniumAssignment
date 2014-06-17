@@ -49,7 +49,29 @@ GooglePage.prototype.getFirstLinkAnchorText = function(done) {
         }
         else {
             self.getLinkText(el, done);
-            done();
+        }
+    });
+}
+
+GooglePage.prototype.getFirstLinkElement = function(done) {
+    log.info("About to get first link element on page");
+    
+    browser.waitForElementByCssSelector(firstResultSelector, function(err, el) {
+        if(err) {
+            done(err);
+        }
+        else {
+            log.info("About to click first element on page");
+            done(null, el);
+            // el.click(function(err) {
+            //     if(err) {
+            //         self.done(err);
+            //     }
+            //     else {
+            //         log.info("Clicked successfully");
+            //         self.done(null);
+            //     }
+            // });
         }
     });
 }

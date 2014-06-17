@@ -8,7 +8,7 @@ exports.should = exports.chai.should();
 var wd = require('wd');
 
 exports.log = require('custom-logger').config({ level: 0 }); // TODO: Change to 2 for sauce
-exports.log.info().config({ color: 'green', format: '<logInfoMessage>type="%event%" message="%message% </logInfoMessage>' });
+exports.log.info().config({ color: 'green' });
 
 exports.MaxWaitTime = 120000;
 

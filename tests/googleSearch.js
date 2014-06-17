@@ -42,7 +42,7 @@ describe('Google Search - Basic Search', function() {
         it('should display our page first', function(done) {
             log.info("About to open google home page");
 
-            browser.get("http://google.com", function(err) {
+            browser.get(google.location, function(err) {
                 if(err) {
                     log.error("Unable to get google home page: " + err);
                     done();
@@ -59,6 +59,36 @@ describe('Google Search - Basic Search', function() {
                                 assert.equal(firstElementText, google.mobiquityLinkText);
                             }
                             done();
+                        })
+                    });
+                }
+            });
+        });
+
+        it('clicking the first mobiquity result should take you to the home page', function(done) {
+            log.info("About to open google home page");
+
+            browser.get(google.location, function(err) {
+                if(err) {
+                    done(err);
+                }
+                else {
+                    log.info("Got Google.com home page!");
+                    google.typeSearch("mobiquity", function() {
+                        google.getFirstLinkElement(function(err, firstLinkElement) {
+                            log.info("Back at the test");
+                            firstLinkElement.click(function(err) {
+                                if(err) {
+                                    done(err);
+                                }
+                                else {
+                                    log.info("DONE CLICKING!");
+                                    // ADD Title assertion
+                                    //assert.equal(browser.title(), google.title);
+
+                                    done();
+                                }
+                            })
                         })
                     });
                 }
