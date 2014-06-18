@@ -24,3 +24,19 @@ Page Objects should be used for each page or functional area that makes sense
 * Make a Mobiquity Home Page Object file 
 * Add in another test to verify that clicking on the first link in the search results takes you to the mobiquity home page 
 * Verify the title on the Mobiquity Home Page (make sure you wait until the page is loaded before checking the title)
+
+
+###Assignment 2
+------
+* Make a new test file to test the mobiquity home page
+* Verify at lesat 5 elements on the page
+* Verify that you can click all the menu items
+* Verify the title on each new page
+* Make PageObjects for each new page so they each have a title property (similar to assignment 1 - MobiquityHomePage if you look at the solution branch)
+
+
+###Assignment 3
+------
+* Verify the responsiveness of the home page
+	* When shrunk to phone-size - what happens?
+	* Look at the api.md documentation in the wd repository doc folder for help 
