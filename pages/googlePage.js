@@ -58,20 +58,12 @@ GooglePage.prototype.getFirstLinkElement = function(done) {
     
     browser.waitForElementByCssSelector(firstResultSelector, function(err, el) {
         if(err) {
+            log.info("Error waiting for selector: " + err);
             done(err);
         }
         else {
-            log.info("About to click first element on page");
+            log.info("First link showed up, calling callback");
             done(null, el);
-            // el.click(function(err) {
-            //     if(err) {
-            //         self.done(err);
-            //     }
-            //     else {
-            //         log.info("Clicked successfully");
-            //         self.done(null);
-            //     }
-            // });
         }
     });
 }

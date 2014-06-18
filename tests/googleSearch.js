@@ -6,7 +6,9 @@ var expect = bootstrap.chai.expect;
 var assert = require('assert');
 
 var googlePage = require('../pages/googlePage');
+var mobiquityHomePage = require('../pages/mobiquityHomePage');
 var google;
+var mobiquityHome;
 var sessionid;
 var sessionurl;
 
@@ -15,6 +17,7 @@ describe('Google Search - Basic Search', function() {
 
     before(function(done) {
         google = new googlePage(browser);
+        mobiquityHome = new mobiquityHomePage(browser);
 
         log.info("About to run browser init with desired options: " + JSON.stringify(bootstrap.desired, null, 4));
         bootstrap.desired.name="Google Search - Basic Search";
@@ -75,25 +78,45 @@ describe('Google Search - Basic Search', function() {
                 else {
                     log.info("Got Google.com home page!");
                     google.typeSearch("mobiquity", function() {
-                        google.getFirstLinkElement(function(err, firstLinkElement) {
-                            log.info("Back at the test");
-                            firstLinkElement.click(function(err) {
-                                if(err) {
-                                    done(err);
-                                }
-                                else {
-                                    log.info("DONE CLICKING!");
-                                    // ADD Title assertion
-                                    //assert.equal(browser.title(), google.title);
-
-                                    done();
-                                }
-                            })
-                        })
+                        ClickFirstGoogleLink(ValidateMobiquityHomePageTitle, function(err) {
+                            done(err);
+                        });
                     });
                 }
             });
         });
+
+        function ClickFirstGoogleLink(ValidateNewPageFxn, done) {
+            log.info("In Click first Google Link fxn");
+
+            google.getFirstLinkElement(function(err, firstLinkElement) {
+                log.info("Got First Element: " + firstLinkElement);
+                firstLinkElement.click(function(err) {
+                    if(err) {
+                        done(err);
+                    }
+                    else {
+                        log.info("Clicked on the first link");
+                        ValidateNewPageFxn(done);
+                    }
+                })
+            })
+        }
+
+        // Returns err string if error, otherwise null
+        function ValidateMobiquityHomePageTitle(done) {
+            browser.title(function(err, title) {
+                if(err) {
+                    done(err);
+                }
+                else {
+                    log.info("Mobiquity Home Page title: " + title);
+                    assert.equal(title, mobiquityHome.title);
+                    done();
+                }
+            });
+        }
+
     })
 });
 
