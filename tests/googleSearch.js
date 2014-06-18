@@ -45,46 +45,45 @@ describe('Google Search - Basic Search', function() {
         it('should display our page first', function(done) {
             log.info("About to open google home page");
 
-            browser.get(google.location, function(err) {
-                if(err) {
-                    log.error("Unable to get google home page: " + err);
-                    done();
-                }
-                else {
-                    log.info("Got Google.com home page!");
-                    google.typeSearch("mobiquity", function() {
-                        google.getFirstLinkAnchorText(function(err, firstElementText) {
-                            if(err) {
-                                log.error("Unable to get first result: " + err);
-                            }
-                            else {
-                                log.info("Got element on page: " + firstElementText);
-                                assert.equal(firstElementText, google.mobiquityLinkText);
-                            }
-                            done();
-                        })
-                    });
-                }
+            OpenGoogle(done, function() {
+                google.typeSearch("mobiquity", function() {
+                    google.getFirstLinkAnchorText(function(err, firstElementText) {
+                        if(err) {
+                            log.error("Unable to get first result: " + err);
+                        }
+                        else {
+                            log.info("Got element on page: " + firstElementText);
+                            assert.equal(firstElementText, google.mobiquityLinkText);
+                        }
+                        done();
+                    })
+                });
             });
         });
 
         it('clicking the first mobiquity result should take you to the home page', function(done) {
             log.info("About to open google home page");
 
+            OpenGoogle(done, function() {
+                google.typeSearch("mobiquity", function() {
+                    ClickFirstGoogleLink(ValidateMobiquityHomePageTitle, function(err) {
+                        done(err);
+                    });
+                });
+            });
+        });
+
+        function OpenGoogle(done, cbfxn) {
             browser.get(google.location, function(err) {
                 if(err) {
                     done(err);
                 }
                 else {
                     log.info("Got Google.com home page!");
-                    google.typeSearch("mobiquity", function() {
-                        ClickFirstGoogleLink(ValidateMobiquityHomePageTitle, function(err) {
-                            done(err);
-                        });
-                    });
+                    cbfxn();
                 }
             });
-        });
+        }
 
         function ClickFirstGoogleLink(ValidateNewPageFxn, done) {
             log.info("In Click first Google Link fxn");
