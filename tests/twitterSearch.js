@@ -6,6 +6,7 @@ var browser = bootstrap.browser;
 
 var twitterHomePage = require("../pages/twitterHomePage");
 var twitterHome = new twitterHomePage(browser);
+var asserters = bootstrap.wd.asserters; // commonly used asserters
 
 describe('Twitter Search', function() {
     this.timeout(bootstrap.MaxWaittime);
@@ -50,19 +51,64 @@ describe('Twitter Search', function() {
     });
 
 
-    function HandleErrors(mochaTestDoneCB, itWorkedCB) {
+    function HandleErrors(mochaTestDoneCB, itWorkedCB, other) {
         return function (err) {
             if (err) {
                 mochaTestDoneCB(err);
             }
             else {
-                itWorkedCB();
+                itWorkedCB(other);
             }
         }
     }
 
-    it('should not let me log in with valid username and invalid password', function(done) {
-        
+    it('should let me use asserters', function(done) {
+        twitterHome.open(function(err) {
+            if(err) {
+                done(err);
+            }
+            else {
+                log.info("Opened twitter home page...");
+                // Click about
+                browser.waitForElementByCssSelector("a[href=\"\/about\"]", function(err, el) {
+                    el.click(function(err) {
+                        log.info("CLICKED ON ABOUT, err is: " + err);
+                        // Make sure I wait for the title to be whatever the about page title is
+                        try{
+                            browser.waitFor(asserters.jsCondition('$("title").html() == "About Twitter" ? true : false'), bootstrap.MaxWaittime, function(err, status) {
+                                NewPageLoaded(done, err, status);
+                            });
+                        }
+                        catch(e) {
+                            log.error("Error waiting: " + e);
+                            done(e);
+                        }
+
+                    });
+                })
+
+            }
+        })
+
+
+    });
+
+    function NewPageLoaded(done, err, status) {
+        log.info("waiting complete! ON THE ABOUT TWITTER PAGE!: " + status);
+        browser.title(done, function(err, titletext) {
+            if(err) {
+                done(err);
+            }
+            else {
+                log.info("TITLE IS: " + titletext);
+                done();
+            }
+        });
+    }
+
+
+    xit('should not let me log in with valid username and invalid password', function(done) {
+        //browser.open("https://www.twitter.com").then()
         // Open the page
         twitterHome.open(HandleErrors(done, function () {
             TypeInvalidUserName(HandleErrors(done, function() {
