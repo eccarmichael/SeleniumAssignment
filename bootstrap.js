@@ -50,10 +50,7 @@ else { // Run the test locally
     exports.browser = wd.promiseChainRemote(host, port);
 
     exports.desired = {
-        name:"Test Framework - Selenium wd",
-        browserName:"Chrome",
-        platform:"OS X 10.8",
-        version: '35'
+        browserName:"chrome",
     };
 }
 

@@ -50,6 +50,7 @@ describe('Google Search - Basic Search', function() {
                     google.getFirstLinkAnchorText(function(err, firstElementText) {
                         if(err) {
                             log.error("Unable to get first result: " + err);
+                            done(err);
                         }
                         else {
                             log.info("Got element on page: " + firstElementText);
@@ -73,14 +74,14 @@ describe('Google Search - Basic Search', function() {
             });
         });
 
-        function OpenGoogle(done, cbfxn) {
+        function OpenGoogle(mochaDone, callBackOnSuccess) {
             browser.get(google.location, function(err) {
                 if(err) {
-                    done(err);
+                    mochaDone(err);
                 }
                 else {
                     log.info("Got Google.com home page!");
-                    cbfxn();
+                    callBackOnSuccess();
                 }
             });
         }

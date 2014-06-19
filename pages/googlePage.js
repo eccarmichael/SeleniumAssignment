@@ -48,6 +48,7 @@ GooglePage.prototype.getFirstLinkAnchorText = function(done) {
             done(err);
         }
         else {
+            
             self.getLinkText(el, done);
         }
     });
@@ -58,7 +59,6 @@ GooglePage.prototype.getFirstLinkElement = function(done) {
     
     browser.waitForElementByCssSelector(firstResultSelector, function(err, el) {
         if(err) {
-            log.info("Error waiting for selector: " + err);
             done(err);
         }
         else {
@@ -74,6 +74,7 @@ GooglePage.prototype.getLinkText = function(el, done) {
             done(err);
         }
         else {
+            log.info("Got link text: " + val);
             done(null, val);
         }
     });
