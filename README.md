@@ -17,6 +17,37 @@ Page Objects should be used for each page or functional area that makes sense
 	3. This is typically locally on port 4444 at <http://localhost:4444/wd/hub>
 	4. Run ```mocha tests```
 
+###Spider Assignment 1
+------
+* git clone this repo
+* checkout branch SpiderAssignment1
+* Get Comfy with CSS Selectors
+* Get Comfy with the wd library (npm install it)
+  * Read the documentation: https://github.com/admc/wd/blob/master/doc/api.md 
+* Understand the existing code
+  * What is a 'Page Object'
+  * What is a callback
+  * What is an async call
+* Extend user login to verify another element on the home page
+* NO CSS Selectors in the test files (ONLY in the page objects!)
+
+###Spider Assignment 2  
+* Add in more login tests
+  * Invalid Username
+    * Verify the error page & message
+  * Invalid Password
+    * Verify the error page & message
+  * Admin login
+    * Verify that you can see an admin feature or two on the home page after the login  
+* NO CSS Selectors in the test files (ONLY in the page objects!)
+
+###Spider Assignment 3
+* Test a use case! 
+* Create a new test file under scripts called adminVideoUpload.js
+* Make a (very) short mp4 video
+* Upload the video via the API (the same way it is uploaded from the website - use Charles Proxy or the Network tab to see what calls are made).
+* After the video is uploaded, search for the video via your script on the home page & verify it's existance along with upload data
+* Go to the video's home page and verify information on the page
 
 ###Assignment 1
 ------

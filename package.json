@@ -1,32 +1,36 @@
 {
-  "name": "seleniumAssignment",
+  "name": "SpiderLMSSelenium",
   "version": "0.0.1",
-  "description": "Some intro assignments based off the selenium mobiquity framework",
+  "description": "Functional Selenium tests",
   "main": "bootstrap.js",
   "directories": {
     "test": "tests"
   },
   "dependencies": {
-    "chromedriver": "~2.10.0",
-    "selenium-standalone": "~2.42.0-2.9.0",
-    "wd": "~0.3.1",
-    "custom-logger": "~0.2.1",
+    "colors": "~0.6.2",
+    "npm": "~1.4.13",
     "chai": "~1.9.1",
+    "install": "~0.1.7",
     "chai-as-promised": "~4.1.1",
-    "colors": "~0.6.2"
+    "custom-logger": "~0.2.1",
+    "wd": "~0.2.27",
+    "mocha": "~1.20.1",
+    "selenium-standalone": "~2.42.0-2.9.0-1",
+    "jquery": "~2.1.1",
+    "xmldom": "~0.1.19"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "mocha tests"
+    "test": "./node_modules/.bin/mocha --recursive -R xunit scripts/ > test-reports.xml"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:eccarmichael/SeleniumAssignment.git"
+    "url": "git@github.com:Mobiquity/MobSource_SpiderLMS_Web.git"
   },
   "author": "Elise",
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/eccarmichael/SeleniumAssignment/issues"
+    "url": "https://github.com/Mobiquity/MobSource_SpiderLMS_Web/issues"
   },
-  "homepage": "https://github.com/eccarmichael/SeleniumAssignment"
+  "homepage": "https://github.com/Mobiquity/MobSource_SpiderLMS_Web"
 }

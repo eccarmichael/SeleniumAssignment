@@ -1,0 +1,32 @@
+{
+    "onsauce": false,
+    "resultsFile": "SauceResults.xml",
+    "maxwaittime": "120000",
+    "loglevelmin": 1,
+    "xunitResultsFile": "test-reports.xml",
+    "qtest": {
+        "apiurl": "https://mobiquity.qtestnet.com/api",
+        "username": "mpatel@mobiquityinc.com",
+        "password": "effective1?",
+        "projectid": "6783",
+        "regressionsuiteid": "42162"
+    },
+    "sauce": {
+        "path": "development.spiderlms.com:3000",
+        "host": "ondemand.saucelabs.com",
+        "port": "80",
+        "name": "SpiderLMS - Selenium Functional",
+        "browserName": "chrome",
+        "platform": "OS X 10.6",
+        "version" : "35",
+        "username": "mobiquity",
+        "accesskey": "75b72184-3f8d-45d5-ae04-8d79d2b06ccb"
+    },
+    "local": {
+        "path": "development.spiderlms.com:3000",
+        "host": "localhost",
+        "port": "4444",
+        "name":"SpiderLMS - local",
+        "browserName":"chrome"
+    }
+} 
