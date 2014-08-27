@@ -1,5 +1,6 @@
 var wd = require('wd');
 var bootstrap = require('../bootstrap');
+var asserters = wd.asserters;
 var log = bootstrap.log;
 var browser;
 
@@ -25,19 +26,21 @@ var loginPage = function(theBrowser) {
 
 loginPage.prototype.clickUserAccount = function(done) {
     // Only do this if we can find the button 
-    browser.elementByCss(loginPageObjects.userAccountButton, function(err, el) {
-        if(err) {
-            done(); // No need to click
-        }
-        else {
-            el.click(function(err) {
-                if(err) {
-                    done(err);
-                }
-                else {
-                    done();
-                }
-            })
+    browser.waitForElementByCssSelector(loginPageObjects.userAccountButton, asserters.isDisplayed, 3000, 500,
+        function(err, el) {
+            if(err) {
+                log.info("Unable to find css to clickUserAccount link: " + err);
+                done(); // No need to click
+            }
+            else {
+                el.click(function(err) {
+                    if(err) {
+                        done(err);
+                    }
+                    else {
+                        done();
+                    }
+                })
         }
     });
 }
@@ -103,5 +106,6 @@ loginPage.prototype.typeAdminEmail = function(done) {
 loginPage.prototype.typeAdminPassword = function(done) {
     this.typePassword(loginPageObjects.adminpassword, done);
 }
+
 
 module.exports = loginPage;

@@ -74,7 +74,7 @@ describe('SpiderLMS - Login', function() {
 function LoginAs(email, password, CBFxn) {
     log.info("About to login as: " + email + ", Password: " + password);
     try {
-        browser.get(url, HandleErrors(CBFxn, function() {
+        browser.get(bootstrap.settings.local.path, HandleErrors(CBFxn, function() {
             log.info("Opened Page");
             login.clickLogin(HandleErrors(CBFxn, function() {
                 log.info("Clicked Login Button");
@@ -83,7 +83,7 @@ function LoginAs(email, password, CBFxn) {
                     login.typePassword(password, HandleErrors(CBFxn, function() {
                         log.info("Typed password");
                         login.clickSubmit(HandleErrors(CBFxn, function() {
-                            log.info("Clicked subit");
+                            log.info("Clicked submit");
                             login.clickUserAccount(HandleErrors(CBFxn, function() {
                                 log.info("Logged in as email " + email);
                                 // Verify Stuff in the Callback

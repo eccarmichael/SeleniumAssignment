@@ -1,16 +1,4 @@
 node_modules/
-.DS_STORE
-.swp
-*.yaml
-client/dist/
-client/public/videos/*
-!client/public/videos/x.gitkeep
-client/public/video-assets/*
-!client/public/video-assets/x.gitkeep
-client/public/icons/*
-!client/public/icons/x.gitkeep
-bower_components/
-.tmp
 !test/SauceResults.xml
 test/test-reports.xml
 npm-debug.log

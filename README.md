@@ -21,6 +21,8 @@ Page Objects should be used for each page or functional area that makes sense
 ------
 * git clone this repo
 * checkout branch SpiderAssignment1
+* npm install
+* start the selenium server
 * Get Comfy with CSS Selectors
 * Get Comfy with the wd library (npm install it)
   * Read the documentation: https://github.com/admc/wd/blob/master/doc/api.md 
