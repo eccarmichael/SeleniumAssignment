@@ -5,7 +5,7 @@ var browser;
 // Page Elements Here
 // NOTE: No other customer page-specific names should be anywhere 
 //   but at the top of the file or the top of the page object
-var searchBoxInputById = "gbqfq";
+var searchBoxInputCss = "#gbqfq";
 var firstResultSelector = "#rso li .r a";
 
 var GooglePage = function(theBrowser) {
@@ -20,20 +20,19 @@ var GooglePage = function(theBrowser) {
 GooglePage.prototype.typeSearch = function(searchString, done) {
     log.info("About to search for text: " + searchString);
 
-    browser.waitForElementById(searchBoxInputById, function(err, el) {
+    browser.waitForElementByCss(searchBoxInputCss, function(err, el) {
         if(err) {
-            log.err("Unable to find search box: " + err);
-            done();
+            done(err);
         }
         else {
             el.sendKeys(searchString, function(err) {
                 if(err) {
-                    log.err("Unable to type text into search box: " + err);
+                    done("Unable to type text into search box: " + err);
                 }
                 else {
                     log.info("Successfully typed text: " + searchString);
+                    done();
                 }
-                done();
             });
         }
     })
@@ -49,11 +48,9 @@ GooglePage.prototype.getFirstLinkAnchorText = function(done) {
         }
         else {
             self.getLinkText(el, done);
-            done();
         }
     });
 }
-
 GooglePage.prototype.getLinkText = function(el, done) {
     el.getAttribute("innerHTML", function(err, val) {
         if(err) {

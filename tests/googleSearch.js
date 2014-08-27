@@ -34,36 +34,34 @@ describe('Google Search - Basic Search', function() {
         browser.quit().nodeify(done);
     });
 
-    it('has an initial empty test for kicks', function(done) {
+    xit('has an initial empty test for kicks', function(done) {
         done();
     });
 
     describe('Mobiquity Search', function() {
         it('should display our page first', function(done) {
             log.info("About to open google home page");
-
-            browser.get("http://google.com", function(err) {
-                if(err) {
-                    log.error("Unable to get google home page: " + err);
-                    done();
-                }
-                else {
-                    log.info("Got Google.com home page!");
-                    google.typeSearch("mobiquity", function() {
-                        google.getFirstLinkAnchorText(function(err, firstElementText) {
-                            if(err) {
-                                log.error("Unable to get first result: " + err);
-                            }
-                            else {
-                                log.info("Got element on page: " + firstElementText);
-                                assert.equal(firstElementText, google.mobiquityLinkText);
-                            }
-                            done();
-                        })
-                    });
-                }
-            });
+            browser.get("http://google.com", HandleErrors(done, function(err) {
+                log.info("Got Google.com home page!");
+                google.typeSearch("mobiquity", HandleErrors(done, function(err) {
+                    google.getFirstLinkAnchorText(HandleErrors(done, function(err, firstElementText) {
+                        log.info("Got element on page: " + firstElementText);
+                        assert.equal(firstElementText, google.mobiquityLinkText);
+                        done();
+                    })); 
+                }));
+            }));
         });
     })
 });
 
+function HandleErrors(badCB, goodCB) {
+    return function(err, somethingElse) {
+        if(err) {
+            badCB(err);
+        }
+        else {
+            goodCB(null, somethingElse)
+        }
+    }
+}
