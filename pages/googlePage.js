@@ -51,6 +51,25 @@ GooglePage.prototype.getFirstLinkAnchorText = function(done) {
         }
     });
 }
+
+GooglePage.prototype.clickFirstLink = function(done) {
+    browser.waitForElementByCssSelector(firstResultSelector, function(err, el) {
+        if(err) {
+            done(err);
+        }
+        else {
+            el.click(function(err) {
+                if(err) {
+                    done(err);
+                }
+                else {
+                    done();
+                }
+            });
+        }
+    });
+}
+
 GooglePage.prototype.getLinkText = function(el, done) {
     el.getAttribute("innerHTML", function(err, val) {
         if(err) {

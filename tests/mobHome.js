@@ -70,8 +70,7 @@ describe('Google Search - Basic Search', function() {
                             done(err);
                         }
                         else {
-                            log.info("The title I got back: " + thePageTitle);
-                            //thePageTitle.should.equal("mobhomepage.pageTitle");
+                            thePageTitle.should.equal("mobhomepage.pageTitle");
                             done();
                         }
                     })
