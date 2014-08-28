@@ -2,33 +2,28 @@ var bootstrap = require('../bootstrap');
 var browser = bootstrap.browser;
 var log = bootstrap.log;
 var should = bootstrap.should;
-var expect = bootstrap.chai.expect;
-var assert = require('assert');
 
-var googlePage = require('../pages/googlePage');
-var google;
 var mobPage = require('../pages/mobHomePageObject');
 var mobhomepage;
 
 var sessionid;
 var sessionurl;
 
-describe('Google Search - Basic Search', function() {
+describe('Mobiquity Home Page', function() {
     this.timeout(bootstrap.MaxWaittime); // To get the app open in the emulator
 
     before(function(done) {
-        google = new googlePage(browser);
         mobhomepage = new mobPage(browser);
 
         log.info("About to run browser init with desired options: " + JSON.stringify(bootstrap.desired, null, 4));
-        bootstrap.desired.name="Google Search - Basic Search";
+        bootstrap.desired.name="Mobiquity Home Page Menu tests";
 
         browser.init({browserName:'chrome'}).then(function(adb) {
                 log.info("Successfully initialized the browser.");
                 browser.getSessionId().then(function(sid) {
                 sessionid = sid;
                 sessionurl = "https://saucelabs.com/tests/" + sid;
-                bootstrap.writeToFile("Google Search - " + sessionurl);
+                bootstrap.writeToFile("Mobiquity Home page - " + sessionurl);
             });
             return;
         }).nodeify(done);
@@ -42,41 +37,24 @@ describe('Google Search - Basic Search', function() {
         done();
     });
 
-    describe('Mobiquity Search', function() {
-        it('should display our page first', function(done) {
-            log.info("About to open google home page");
-            browser.get("http://google.com", HandleErrors(done, function(err) {
-                log.info("Got Google.com home page!");
-                google.typeSearch("mobiquity", HandleErrors(done, function(err) {
-                    google.getFirstLinkAnchorText(HandleErrors(done, function(err, firstElementText) {
-                        log.info("Got element on page: " + firstElementText);
-                        assert.equal(firstElementText, google.mobiquityLinkText);
-                        done();
-                    })); 
-                }));
-            }));
-        });
-
-        it('should take me to the mobiquity home page when I click the first result', function(done) {
-            google.clickFirstLink(function(err) {
+    describe('Verify Menu Items', function() {
+        it('should have an "About" link', function(done) {
+            browser.get(mobhomepage.url, function(err) {
+                log.info("mobiquity home page opened returned - err? " + err);
                 if(err) {
                     done(err);
                 }
                 else {
-                    // Verify the title
-                    log.info("This is what I want the title to equal: " + mobhomepage.pageTitle);
-                    browser.title(function(err, thePageTitle) {
-                        if(err) {
-                            done(err);
-                        }
-                        else {
-                            thePageTitle.should.equal("mobhomepage.pageTitle");
-                            done();
-                        }
+                    mobhomepage.getAboutLinkText(function(err, alinktext) {
+                        // TODO: Errro handline
+                        log.info("Got about link text: " + alinktext);
+                        alinktext.should.equal(mobhomepage.aboutLinkTextValue);
+                        //mobhomepage.aboutLinkTextValue.should.equal(alinktext);
+                        done();  
                     })
                 }
-            })
-        });
+            });
+        })
     })
 });
 
