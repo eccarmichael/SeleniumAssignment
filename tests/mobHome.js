@@ -56,6 +56,13 @@ describe('Mobiquity Home Page', function() {
             });
         })
     })
+
+    describe('Verify Responsivness', function() {
+        // TODO: Dimensions for Mobile, Dimensions for Desktop
+
+        // Shrink the screen to mobile & verify that the menu 
+        // items are gone and that the hamburger menu is displayed
+    });
 });
 
 function HandleErrors(badCB, goodCB) {
